@@ -1,0 +1,11 @@
+.smex-items
+*~
+elpa/
+eshell/
+ido.last
+packages/
+places
+projectile-bookmarks.eld
+projectile.cache
+server/
+tramp
