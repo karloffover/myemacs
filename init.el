@@ -46,15 +46,6 @@
 	     )))
       (setenv "PATH" (mapconcat 'identity mypaths ";") )
       (setq exec-path (append mypaths (list "." exec-directory))))
-    ;; (setq url-proxy-services
-    ;;       '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\|cvs\\.\\fineco\\.it)")
-    ;;         ("http" . "proxy-v2.fineco.it:3128")
-    ;;         ("https" . "proxy-v2.fineco.it:3128")))
-
-    ;; (setq url-http-proxy-basic-auth-storage
-    ;;       (list (list "proxy-v2.fineco.it:3128"
-    ;;     	      (cons "Input your LDAP UID !"
-    ;;     		    (base64-encode-string "giancarlorosso:MAD-man123")))))
     )
 
   (when (>= emacs-major-version 24)
@@ -79,17 +70,6 @@
                          ))
 
     (require 'package)
-
-    (defvar package-archives
-      "list of repositories.")
-    ;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-    ;; (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
-    (add-to-list 'package-archives '("fineco-elpa" . "http://cvs.fineco.it/nexus/repository/elpa/") t)
-    ;; (add-to-list 'package-archives '("fineco-melpa" . "http://cvs.fineco.it/nexus/repository/melpa/") t)
-    (add-to-list 'package-archives '("fineco-melpa-stable" . "http://cvs.fineco.it/nexus/repository/melpa-stable/") t)
-
-    ;;    (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
-    ;;    (add-to-list 'package-archives '("SC" . "http://joseito.republika.pl/sunrise-commander/") t)
 
     ;; activate all the packages (in particular autoloads)
     (package-initialize)

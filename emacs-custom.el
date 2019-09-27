@@ -8,7 +8,6 @@
  '(company-dabbrev-downcase nil)
  '(compilation-read-command nil)
  '(custom-enabled-themes (quote (wombat)))
- ;; '(epg-gpg-program "gpg2")
  '(global-company-mode t)
  '(global-undo-tree-mode t)
  '(mouse-yank-at-point t)
@@ -31,6 +30,11 @@
  '(show-paren-mode 1)
  '(smex-save-file (concat user-emacs-directory ".smex-items"))
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(url-proxy-services
+   (quote
+    (("http" . "proxy-v1.fineco.it:3128")
+     ("https" . "proxy-v1.fineco.it:3128")
+     ("no_proxy" . "*.fineco.it"))))
  '(visible-bell t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
