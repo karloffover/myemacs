@@ -48,44 +48,45 @@
       (setq exec-path (append mypaths (list "." exec-directory))))
     )
 
-  (when (>= emacs-major-version 24)
-    (defvar package-list
-      "list of packages to be installed at bootstrap.")
-    (setq package-list '(
-                         ;; dired+
-                         ;; cider
-                         company
-                         flx-ido
-                         flycheck
-                         groovy-mode
-                         json-mode
-                         magit
-                         magit-gerrit
-                         org
-                         projectile
-                         smex
-                         undo-tree
-                         yaml-mode
-                         jinja2-mode
-                         ))
+  ;; (when (>= emacs-major-version 24)
+  ;;   (defvar package-list
+  ;;     "list of packages to be installed at bootstrap.")
+  ;;   (setq package-list '(
+  ;;                        ;; dired+
+  ;;                        ;; cider
+  ;;                        company
+  ;;                        flx-ido
+  ;;                        flycheck
+  ;;                        groovy-mode
+  ;;                        json-mode
+  ;;                        magit
+  ;;                        magit-gerrit
+  ;;                        org
+  ;;                        projectile
+  ;;                        smex
+  ;;                        undo-tree
+  ;;                        yaml-mode
+  ;;                        jinja2-mode
+  ;;                        ))
 
-    (require 'package)
+  ;;   (require 'package)
 
-    ;; activate all the packages (in particular autoloads)
-    (package-initialize)
+  ;;   ;; activate all the packages (in particular autoloads)
+  ;;   (package-initialize)
 
-    ;; get list of packages
-    (defvar package-archive-contents
-      "used to refresh packages contents.")
-    (unless package-archive-contents
-      (package-refresh-contents))
+  ;;   ;; get list of packages
+  ;;   (defvar package-archive-contents
+  ;;     "used to refresh packages contents.")
+  ;;   (unless package-archive-contents
+  ;;     (package-refresh-contents))
 
-    (dolist (package package-list)
-      (unless (package-installed-p package)
-        (package-install package)))
-    )
+  ;;   (dolist (package package-list)
+  ;;     (unless (package-installed-p package)
+  ;;       (package-install package)))
+  ;;   )
 
   ;; GENERAL
+  (require 'package)
   (require 'org)
   (require 'saveplace)
   (require 'uniquify)
@@ -102,8 +103,8 @@
   ;; Either the Key ID or set to nil to use symmetric encryption.
   (setq org-crypt-key "237BFD753F23A07FEDFCA79FA418FD130C08336D")
 
-  (ido-mode 1)
-  (ido-everywhere 1)
+  ;; (ido-mode 1)
+  ;; (ido-everywhere 1)
   (flx-ido-mode 1)
   (projectile-mode +1)
   (setq ido-use-faces nil)

@@ -4,12 +4,15 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(apropos-do-all t)
+ '(async-bytecomp-package-mode t)
  '(backup-directory-alist (\` (("." \, (concat user-emacs-directory "backups")))))
  '(company-dabbrev-downcase nil)
  '(compilation-read-command nil)
  '(custom-enabled-themes (quote (wombat)))
  '(global-company-mode t)
  '(global-undo-tree-mode t)
+ '(ido-everywhere t)
+ '(ido-mode (quote both) nil (ido))
  '(mouse-yank-at-point t)
  '(org-capture-templates
    (quote
@@ -18,9 +21,14 @@
        (concat org-directory "/notes.org")
        "Notes")))))
  '(org-directory "~/Documents/Agenda")
+ '(package-archives
+   (quote
+    (("gnu" . "https://elpa.gnu.org/packages/")
+     ("melpa-stable" . "https://stable.melpa.org/packages/"))))
+ '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (ace-window exwm-x haskell-mode pass jinja2-mode yaml-mode undo-tree smex projectile magit-gerrit json-mode groovy-mode flycheck flx-ido exwm company cider)))
+    (password-store ace-window jinja2-mode yaml-mode undo-tree smex projectile json-mode groovy-mode flycheck flx-ido company)))
  '(save-interprogram-paste-before-kill t)
  '(save-place-file (concat user-emacs-directory "places"))
  '(save-place-mode t nil (saveplace))
