@@ -24,98 +24,31 @@
 ;;;###
 ;; environment for fineco
 (progn
-  ;; (when (or (string-equal (system-name) "fbmi01342pc.milano.banca.fineco.it") (compare-strings (system-name) nil nil "FBMI01342PC" nil nil t))
-  ;;   (defvar url-proxy-services
-  ;;     "list of proxy properties.")
-  ;;   (setq url-proxy-services
-  ;;         '(("http"."proxy-v1.fineco.it:3128")
-  ;;           ("https"."proxy-v1.fineco.it:3128")
-  ;;           ("no_proxy"."^.*fineco.it")))
-  ;;   (load-theme 'wombat t)
-  ;;   )
-
+  (defvar before-user-init-time (current-time)
+    "Value of `current-time' when Emacs begins loading `user-init-file'.")
+  (message "Loading Emacs...done (%.3fs)"
+           (float-time (time-subtract before-user-init-time
+                                      before-init-time)))
+  (setq user-init-file (or load-file-name buffer-file-name))
+  (setq user-emacs-directory (file-name-directory user-init-file))
+  (message "Loading %s..." user-init-file)
+  
   ;; saving customisations
-  (setq custom-file "~/.emacs.d/emacs-custom.el")
-  (load custom-file)
+  (setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file)
+    (load custom-file))
 
-  (when (string-equal system-type "windows-nt")
-    (let (
-	  (mypaths
-	   '(
-    "c:/Program Files (x86)/Common Files/Oracle/Java/javapath" "c:/Windows/system32" "c:/Windows" "c:/Windows/System32/Wbem" "c:/Windows/System32/WindowsPowerShell/v1.0" "c:/Windows/System32/OpenSSH" "c:/Program Files (x86)/CheckPoint/Endpoint Security/Endpoint Common/bin" "c:/Program Files/TortoiseSVN/bin" "c:/Program Files/Git/cmd" "c:/Users/giancarlorosso/AppData/Local/Microsoft/WindowsApps" "." "c:/Users/giancarlorosso/Applications/emacs/libexec/emacs/26.1/x86_64-w64-mingw32" "c:/msys64/usr/bin"
-	     )))
-      (setenv "PATH" (mapconcat 'identity mypaths ";") )
-      (setq exec-path (append mypaths (list "." exec-directory))))
-    )
-
-  ;; (when (>= emacs-major-version 24)
-  ;;   (defvar package-list
-  ;;     "list of packages to be installed at bootstrap.")
-  ;;   (setq package-list '(
-  ;;                        ;; dired+
-  ;;                        ;; cider
-  ;;                        company
-  ;;                        flx-ido
-  ;;                        flycheck
-  ;;                        groovy-mode
-  ;;                        json-mode
-  ;;                        magit
-  ;;                        magit-gerrit
-  ;;                        org
-  ;;                        projectile
-  ;;                        smex
-  ;;                        undo-tree
-  ;;                        yaml-mode
-  ;;                        jinja2-mode
-  ;;                        ))
-
-  ;;   (require 'package)
-
-  ;;   ;; activate all the packages (in particular autoloads)
-  ;;   (package-initialize)
-
-  ;;   ;; get list of packages
-  ;;   (defvar package-archive-contents
-  ;;     "used to refresh packages contents.")
-  ;;   (unless package-archive-contents
-  ;;     (package-refresh-contents))
-
-  ;;   (dolist (package package-list)
-  ;;     (unless (package-installed-p package)
-  ;;       (package-install package)))
-  ;;   )
-
+  (package-initialize)
   ;; GENERAL
   (require 'package)
   (require 'org)
   (require 'saveplace)
   (require 'uniquify)
   (require 'whitespace)
-  (require 'magit-gerrit)
-  ;; flx-ido for projectile
-  (require 'flx-ido)
-  ;; crypt org entries
-  (require 'org-crypt)
-  (org-crypt-use-before-save-magic)
-  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-  (setq epa-pinentry-mode 'ask)
-  ;; GPG key to use for encryption
-  ;; Either the Key ID or set to nil to use symmetric encryption.
-  (setq org-crypt-key "237BFD753F23A07FEDFCA79FA418FD130C08336D")
-
-  ;; (ido-mode 1)
-  ;; (ido-everywhere 1)
-  (flx-ido-mode 1)
-  (projectile-mode +1)
-  (setq ido-use-faces nil)
-  (setq ido-enable-flex-matching t)
-
-  ;;  (require 'yaml-mode)
-  (setq-default indent-tabs-mode nil) ;; enable/disable tab-stop
-  (setq-default save-place t)
+  (require 'projectile)
 
   ;; HOOKS
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (add-hook 'after-init-hook 'global-flycheck-mode)
 
   ;; ASSOCIATIONS
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
@@ -129,53 +62,42 @@
   (global-set-key (kbd "C-r") 'isearch-backward-regexp)
   (global-set-key (kbd "C-M-s") 'isearch-forward)
   (global-set-key (kbd "C-M-r") 'isearch-backward)
-  (global-set-key (kbd "C-x g") 'magit-status)
+  ;;(global-set-key (kbd "C-x g") 'magit-status)
 
-  (define-key global-map "\C-cc" 'org-capture)
+  (define-key global-map "\C-c c" 'org-capture)
+
+  ;; Projectile
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  
-  ;; FACE
-  (when (string-equal system-type 'darwin)
-    (set-face-attribute 'default nil :family "Unifont")
-    (set-face-attribute 'default nil :height 165))
-  (when (string-equal system-type 'windows-nt)
-    (set-face-attribute 'default nil :family "Source Code Pro")
-    (set-face-attribute 'default nil :height 113))
- (when (string-equal system-type 'gnu/linux)
-   (set-face-attribute 'default nil :family "Source Code Pro")
-   (set-face-attribute 'default nil :height 120))
-
-  (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-  (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-  (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-  (setq inhibit-startup-screen t)
+  (projectile-mode +1)
 
   ;; FUNCTIONS
-  (defun nxml-pretty-format ()
-    "Invokes xmllint on selected text."
-    (interactive)
-    (save-excursion
-      (shell-command-on-region (point-min) (point-max) "xmllint --format -" (buffer-name) t)
-      (nxml-mode)
-      (indent-region 0 (count-lines (point-min) (point-max))))
-    )
+  ;; (defun nxml-pretty-format ()
+  ;;   "Invokes xmllint on selected text."
+  ;;   (interactive)
+  ;;   (save-excursion
+  ;;     (shell-command-on-region (point-min) (point-max) "xmllint --format -" (buffer-name) t)
+  ;;     (nxml-mode)
+  ;;     (indent-region 0 (count-lines (point-min) (point-max))))
+  ;;   )
+
+  ;; saving customisations
+  (defvar functions-file
+    "Library for functions.")
+  (setq functions-file (expand-file-name "packages/functions.el" user-emacs-directory))
+  (when (file-exists-p functions-file)
+    (load functions-file))
 
   ;;; % like in vi
-  (global-set-key "%" 'match-paren)
-  (defun match-paren (arg)
-    "Go to the matching paren if on a paren; otherwise insert %."
-    (interactive "p")
-    (cond ((looking-at "\\s(") (forward-list 1) (backward-char 1))
-          ((looking-at "\\s)") (forward-char 1) (backward-list 1))
-          (t (self-insert-command (or arg 1)))))
-
-  ;; active Org-babel languages
-  (org-babel-do-load-languages
-   'org-babel-do-load-languages
-   '(;; other Babel languages
-     (plantuml . t)))
-  (setq org-plantuml-jar-path
-        (expand-file-name "~/Applications/plantuml.jar"))
+  ;; (global-set-key "%" 'match-paren)
+  ;; (defun match-paren (arg)
+  ;;   "Go to the matching paren if on a paren; otherwise insert %."
+  ;;   (interactive "p")
+  ;;   (cond ((looking-at "\\s(") (forward-list 1) (backward-char 1))
+  ;;         ((looking-at "\\s)") (forward-char 1) (backward-list 1))
+  ;;         (t (self-insert-command (or arg 1)))))
+  ;;; org crypt
+  ;; (org-crypt-use-before-save-magic)
 )
 (server-start)
 (provide 'init)
