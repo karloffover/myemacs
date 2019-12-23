@@ -49,6 +49,7 @@
 
   ;; HOOKS
   (add-hook 'after-init-hook 'global-flycheck-mode)
+  (add-hook 'after-init-hook 'global-company-mode)
 
   ;; ASSOCIATIONS
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))

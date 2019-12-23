@@ -32,11 +32,11 @@
  '(mouse-yank-at-point t)
  '(org-capture-templates
    (quote
-    (("n" "Note" entry
-      (file+headline
-       (concat org-directory "/notes.org")
-       "Notes")))))
+    (("n" "Nota" entry
+      (file "concat org-directory /notes.org")
+      "Notes"))))
  '(org-crypt-key "237BFD753F23A07FEDFCA79FA418FD130C08336D")
+ '(org-directory "~/Documents/Agenda")
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-crypt org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m)))
