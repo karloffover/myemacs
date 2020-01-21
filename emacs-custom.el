@@ -19,7 +19,7 @@
    "C:\\Users\\giancarlorosso\\AppData\\Local\\GnuPG\\bin\\gpgconf.exe")
  '(exec-path
    (quote
-    ("c:/Program Files (x86)/Common Files/Oracle/Java/javapath" "C:/Windows/system32" "C:/Windows" "C:/Windows/System32/Wbem" "C:/Windows/System32/WindowsPowerShell/v1.0/" "C:/Windows/System32/OpenSSH/" "C:/Program Files (x86)/CheckPoint/Endpoint Security/Endpoint Common/bin" "C:/Program Files/TortoiseSVN/bin" "C:/Program Files/Git/cmd" "C:/Users/giancarlorosso/AppData/Local/Microsoft/WindowsApps" "C:/Users/giancarlorosso/AppData/Local/Programs/Microsoft VS Code/bin" "C:/Users/giancarlorosso/AppData/Local/Gpg4win/../GnuPG/bin" "c:/Users/giancarlorosso/Applications/emacs-26.3-x86_64/libexec/emacs/26.3/x86_64-w64-mingw32" "c:/msys64/usr/bin")))
+    ("c:/Program Files (x86)/Common Files/Oracle/Java/javapath" "C:/Windows/system32" "C:/Windows" "C:/Windows/System32/Wbem" "C:/Windows/System32/WindowsPowerShell/v1.0/" "C:/Windows/System32/OpenSSH/" "C:/Program Files (x86)/CheckPoint/Endpoint Security/Endpoint Common/bin" "C:/Program Files/TortoiseSVN/bin" "C:/Program Files/Git/cmd" "C:/Users/giancarlorosso/AppData/Local/Microsoft/WindowsApps" "C:/Users/giancarlorosso/AppData/Local/Programs/Microsoft VS Code/bin" "C:/Users/giancarlorosso/AppData/Local/Gpg4win/../GnuPG/bin" "c:/Users/giancarlorosso/Applications/emacs-26.3-x86_64/libexec/emacs/26.3/x86_64-w64-mingw32" "c:/msys64/usr/bin" "c:/Users/giancarlorosso/Applications/putty/")))
  '(flx-ido-mode t)
  '(global-company-mode t)
  '(global-undo-tree-mode t)
@@ -27,6 +27,7 @@
  '(ido-everywhere t)
  '(ido-mode (quote both) nil (ido))
  '(ido-use-faces nil)
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(mouse-yank-at-point t)
@@ -48,7 +49,10 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (projectile password-store ace-window jinja2-mode yaml-mode undo-tree smex json-mode groovy-mode flycheck flx-ido company org-crypt)))
+    (smartparens projectile password-store ace-window jinja2-mode yaml-mode undo-tree smex json-mode groovy-mode flycheck flx-ido company org-crypt)))
+ '(projectile-globally-ignored-directories
+   (quote
+    (".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "./target" "./build")))
  '(save-interprogram-paste-before-kill t)
  '(save-place-file (concat user-emacs-directory "places"))
  '(scroll-bar-mode nil)
@@ -57,6 +61,7 @@
  '(setq inhibit-startup-screen t)
  '(smex-save-file (concat user-emacs-directory ".smex-items"))
  '(tool-bar-mode nil)
+ '(tramp-default-method "plink")
  '(url-proxy-services
    (quote
     (("http" . "proxy-v1.fineco.it:3128")
@@ -68,4 +73,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Source Code Pro" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))

@@ -32,7 +32,7 @@
   (setq user-init-file (or load-file-name buffer-file-name))
   (setq user-emacs-directory (file-name-directory user-init-file))
   (message "Loading %s..." user-init-file)
-  
+
   ;; saving customisations
   (setq custom-file (expand-file-name "emacs-custom.el" user-emacs-directory))
   (when (file-exists-p custom-file)
@@ -46,10 +46,12 @@
   (require 'uniquify)
   (require 'whitespace)
   (require 'projectile)
+  (require 'smartparens-config)
 
   ;; HOOKS
   (add-hook 'after-init-hook 'global-flycheck-mode)
   (add-hook 'after-init-hook 'global-company-mode)
+  (add-hook 'after-init-hook 'global-undo-tree-mode)
 
   ;; ASSOCIATIONS
   (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\)$" . org-mode))
