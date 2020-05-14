@@ -1,22 +1,12 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: [2020-04-22 mer]
+#+DATE: <2020-05-14 Thu>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 
 * Setup
-
-** Configure proxy
-
-   Configure proxy when needed.
-
-#+BEGIN_SRC emacs-lisp
-	(setq url-proxy-services '(("http" . "proxy.fineco.it:3128")
-		("https" . "proxy.fineco.it:3128")
-	        ("no_proxy" . "*.fineco.it")))
-#+END_SRC
 
 ** Configure package sources
 
@@ -93,16 +83,16 @@ This stops emacs adding customised settings to =init.el=. I try to avoid using c
 (setq custom-file (make-temp-file "emacs-custom"))
 #+END_SRC
 
-** Record key frequency
+# ** Record key frequency
 
-   This is useful to find out what I use a lot. I plan to then change bindings to improve ergonomics on commonly used functions.
+#    This is useful to find out what I use a lot. I plan to then change bindings to improve ergonomics on commonly used functions.
 
-#+BEGIN_SRC emacs-lisp
-  (use-package keyfreq
-    :config
-    (keyfreq-mode 1)
-    (keyfreq-autosave-mode 1))
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+#   (use-package keyfreq
+#     :config
+#     (keyfreq-mode 1)
+#     (keyfreq-autosave-mode 1))
+# #+END_SRC
 
 ** Global keys
 
@@ -180,11 +170,11 @@ I *never* want whitespace at the end of lines. Remove it on save.
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
-I like frame maximized
+# I like frame maximized
 
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+# (add-to-list 'default-frame-alist '(fullscreen . maximized))
+# #+END_SRC
 
 ** Command completion
 
@@ -209,24 +199,24 @@ I like frame maximized
 
 * Appearance
 
-  Load theme.
+#   Load theme.
 
-#+BEGIN_SRC emacs-lisp
-(load-theme 'deeper-blue t)
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+# (load-theme 'deeper-blue t)
+# #+END_SRC
 
 Set a nice font.
 
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "Source Code Pro 11" nil t)
-  ;; (set-frame-font "Inconsolata 13" nil t)
-  ;; (set-frame-font "SF Mono 12" nil t)
+(set-frame-font "Source Code Pro 11" nil t)
+;; (set-frame-font "Inconsolata 13" nil t)
+;; (set-frame-font "SF Mono 12" nil t)
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package emojify)
+(use-package emojify)
 #+END_SRC
 
 * Coding
@@ -236,7 +226,7 @@ When programming I like my editor to try to help me with keeping parentheses bal
 
 #+BEGIN_SRC emacs-lisp
 (use-package smartparens
-	:config
+:config
         (add-hook 'prog-mode-hook 'smartparens-mode))
 #+END_SRC
 
@@ -341,12 +331,7 @@ My gpg configuration. Fix configuration and migrate to use-package.
 
 #+BEGIN_SRC emacs-lisp
 (setq epa-global-mail-mode t)
-(setq epa-pinentry-mode (quote ask))
-(setq epg-gpg-home-directory "C:\\Users\\giancarlorosso\\AppData\\Roaming\\gnupg")
-(setq epg-gpg-program
-   "C:\\Users\\giancarlorosso\\AppData\\Local\\GnuPG\\bin\\gpg.exe")
-(setq epg-gpgconf-program
-   "C:\\Users\\giancarlorosso\\AppData\\Local\\GnuPG\\bin\\gpgconf.exe")
+(setq epa-pinentry-mode 'loopback)
 #+END_SRC
 
 * Org
@@ -365,6 +350,23 @@ My gpg configuration. Fix configuration and migrate to use-package.
 (setq org-tags-exclude-from-inheritance '("crypt"))
 ;; (define-key global-map "\C-c c" 'org-capture)
 ))
+#+END_SRC
+
+Make agenda and notes easily accessible.
+
+#+BEGIN_SRC emacs-lisp
+(defun find-agenda ()
+"Edit agenda.org"
+(interactive)
+(find-file (expand-file-name "agenda.org" org-directory)))
+
+(defun find-notes()
+"Edit notes.org"
+(interactive)
+(find-file (expand-file-name "notes.org" org-directory)))
+
+(global-set-key (kbd "C-c A") 'find-agenda)
+(global-set-key (kbd "C-c N") 'find-notes)
 #+END_SRC
 
 ** htmlize
