@@ -12,11 +12,8 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 
 #+BEGIN_SRC emacs-lisp
   (setq package-enable-at-startup nil)
-  ;; (setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
-  ;; ("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/")))
-  ;; ;;
-  (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-  ("melpa" . "https://stable.melpa.org/packages/")))
+  (setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
+  ("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/")))
 #+END_SRC
 
 ** Boostrap use-package
@@ -129,7 +126,6 @@ Let's turn off unwanted window decoration.
 
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 #+END_SRC
 
 I don't want the error bell.
