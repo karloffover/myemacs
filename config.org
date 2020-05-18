@@ -193,6 +193,21 @@ I *never* want whitespace at the end of lines. Remove it on save.
     (global-undo-tree-mode 1))
 #+END_SRC
 
+** Ansi compilation console
+
+;; ansi-color.
+;; https://emacs.stackexchange.com/questions/8135/why-does-compilation-buffer-show-control-characters
+
+#+BEGIN_SRC emacs-lisp
+(use-package ansi-color
+  :ensure t
+  :config (progn
+            (defun my/ansi-colorize-buffer ()
+              (let ((buffer-read-only nil))
+                (ansi-color-apply-on-region (point-min) (point-max))))
+            (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer)))
+#+END_SRC
+
 * Appearance
 
 #   Load theme.
