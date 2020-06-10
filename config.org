@@ -156,6 +156,12 @@ I usually don't want tabs, if I do I can set this buffer-local to =t=. If I just
 # (setq apropos-do-all t)
 # #+END_SRC
 
+No scrollbar, please.
+
+#+BEGIN_SRC emacs-lisp
+(scroll-bar-mode -1)
+#+END_SRC
+
 * Interface
 
 ** Basics
@@ -212,9 +218,9 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 #   Load theme.
 
-# #+BEGIN_SRC emacs-lisp
-# (load-theme 'deeper-blue t)
-# #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(load-theme 'manoj-dark t)
+#+END_SRC
 
 Set a nice font.
 
