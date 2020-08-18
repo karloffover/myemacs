@@ -11,9 +11,12 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 ** Configure package sources
 
 #+BEGIN_SRC emacs-lisp
-  (setq package-enable-at-startup nil)
-  (setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
-  ("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/")))
+(setq package-enable-at-startup nil)
+(cond ((string-equal system-name "fbmi01342vp")
+(setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
+("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/"))))
+(t
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)))
 #+END_SRC
 
 ** Boostrap use-package
@@ -162,6 +165,22 @@ No scrollbar, please.
 (scroll-bar-mode -1)
 #+END_SRC
 
+** Windows and WSL hacks
+
+Enable WSL copy and paste, since I don't have/like an X Server.
+
+#+BEGIN_SRC emacs-lisp
+(cond ((string-equal system-name 'fbmi01342vp)
+  (defun wsl-copy (start end)
+    (interactive "r")
+    (shell-command-on-region start end "clip.exe")
+    (deactivate-mark t))
+
+  (global-set-key
+    (kbd "C-x M-w")
+    'wsl-copy)))
+#+END_SRC
+
 * Interface
 
 ** Basics
@@ -216,21 +235,23 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 * Appearance
 
-#   Load theme.
+# Load theme.
 
 #+BEGIN_SRC emacs-lisp
-(load-theme 'manoj-dark t)
+(load-theme 'tango-dark t)
 #+END_SRC
 
 Set a nice font.
 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "Source Code Pro 11" nil t)
+(cond ((string-equal system-name 'giancarlo-pc.casa.local)
+(set-frame-font "Source Code Pro 11" nil t))
+(t (set-frame-font "terminus-12" nil t)))
 ;; (set-frame-font "Inconsolata 13" nil t)
 ;; (set-frame-font "SF Mono 12" nil t)
 #+END_SRC
 
-Add emoji support. This is useful when working with html.
+Add emoji support. This is useful when working with html.(set-frame-font "terminus-12" nil t)
 
 #+BEGIN_SRC emacs-lisp
 (use-package emojify)
@@ -345,10 +366,12 @@ Install some premade snippets (in addition to personal ones stored above)
 
 My gpg configuration. Fix configuration and migrate to use-package.
 
-
 #+BEGIN_SRC emacs-lisp
-(setq epa-global-mail-mode t)
-(setq epa-pinentry-mode 'loopback)
+  ;; (setq epa-global-mail-mode t)
+  ;; (setq epa-pinentry-mode 'loopback)
+  (cond
+       ((string-equal system-type "berkeley-unix")
+       (setq epg-gpg-program "gpg2")))
 #+END_SRC
 
 * Org
@@ -395,4 +418,16 @@ Package per esportare org in html.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+#+END_SRC
+
+* EXWM
+
+#+BEGIN_SRC emacs-lisp
+  (use-package exwm
+  :config
+  (require 'exwm-config)
+  (exwm-config-default)
+  (display-battery-mode)
+  (display-time)
+  )
 #+END_SRC
