@@ -137,6 +137,8 @@ I don't want the error bell.
 (setq ring-bell-function 'ignore)
 #+END_SRC
 
+I like to keep backups in a different folder, and delete them when they became old.
+
 #+BEGIN_SRC emacs-lisp
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
 backup-by-copying t    ; Don't delink hardlinks
@@ -163,6 +165,13 @@ No scrollbar, please.
 
 #+BEGIN_SRC emacs-lisp
 (scroll-bar-mode -1)
+#+END_SRC
+
+Save history, especially minibuffer
+
+#+BEGIN_SRC emacs-lisp
+(savehist-mode t)
+(setq savehist-file "~/.emacs.d/tmp/savehist")
 #+END_SRC
 
 ** Windows and WSL hacks
@@ -193,9 +202,10 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 # I like frame maximized
 
-# #+BEGIN_SRC emacs-lisp
-# (add-to-list 'default-frame-alist '(fullscreen . maximized))
-# #+END_SRC
+#+BEGIN_SRC emacs-lisp
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(toggle-frame-maximized)
+#+END_SRC
 
 ** Command completion
 
@@ -247,8 +257,6 @@ Set a nice font.
 (cond ((string-equal system-name 'giancarlo-pc.casa.local)
 (set-frame-font "Source Code Pro 11" nil t))
 (t (set-frame-font "terminus-12" nil t)))
-;; (set-frame-font "Inconsolata 13" nil t)
-;; (set-frame-font "SF Mono 12" nil t)
 #+END_SRC
 
 Add emoji support. This is useful when working with html.(set-frame-font "terminus-12" nil t)
