@@ -259,7 +259,7 @@ Set a nice font.
 (t (set-frame-font "terminus-12" nil t)))
 #+END_SRC
 
-Add emoji support. This is useful when working with html.(set-frame-font "terminus-12" nil t)
+Add emoji support. This is useful when working with html.
 
 #+BEGIN_SRC emacs-lisp
 (use-package emojify)
@@ -370,16 +370,26 @@ Install some premade snippets (in addition to personal ones stored above)
 (add-to-list 'auto-mode-alist '("\\.jenkins$" . groovy-mode)))
 #+END_SRC
 
-* TODO Gpg
+* Gpg
 
 My gpg configuration. Fix configuration and migrate to use-package.
 
 #+BEGIN_SRC emacs-lisp
-  ;; (setq epa-global-mail-mode t)
-  ;; (setq epa-pinentry-mode 'loopback)
-  (cond
-       ((string-equal system-type "berkeley-unix")
-       (setq epg-gpg-program "gpg2")))
+(use-package epa
+:disabled
+:command
+(epa-global-mail-mode)
+:config
+(epa-pinentry-mode 'loopback)
+)
+#+END_SRC
+
+Configura gpg2 on OpenBSD
+
+#+BEGIN_SRC emacs-lisp
+(cond
+((string-equal system-type "berkeley-unix")
+(setq epg-gpg-program "gpg2")))
 #+END_SRC
 
 * Org
@@ -387,6 +397,8 @@ My gpg configuration. Fix configuration and migrate to use-package.
 #+BEGIN_SRC emacs-lisp
 (use-package org
 :mode ("\\.\\(org\\|org_archive\\)$" . org-mode)
+:bind
+("\C-c c" . 'org-capture)
 :config
 (progn
 (setq org-modules '(org-crypt))
@@ -396,7 +408,6 @@ My gpg configuration. Fix configuration and migrate to use-package.
 (setq org-crypt-key "237BFD753F23A07FEDFCA79FA418FD130C08336D")
 (setq org-directory "~/Documents/Agenda")
 (setq org-tags-exclude-from-inheritance '("crypt"))
-;; (define-key global-map "\C-c c" 'org-capture)
 ))
 #+END_SRC
 
@@ -430,12 +441,16 @@ Package per esportare org in html.
 
 * EXWM
 
+EXWM is the default desktop manager, it has to be started from
+.xsession, so it's not run on Windows + VcXsrv or terminal.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package exwm
-  :config
-  (require 'exwm-config)
-  (exwm-config-default)
-  (display-battery-mode)
-  (display-time)
-  )
+(use-package exwm
+:if (memq system-type '(berkeley-unix))
+:config
+(require 'exwm-config)
+(exwm-config-default)
+(display-battery-mode)
+(display-time)
+)
 #+END_SRC
