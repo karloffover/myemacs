@@ -12,3 +12,5 @@ server/
 tramp
 \#*\#
 config.el
+tmp/
+history
