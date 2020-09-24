@@ -12,11 +12,10 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 
 #+BEGIN_SRC emacs-lisp
 (setq package-enable-at-startup nil)
-(cond ((string-equal system-name "fbmi01342vp")
-(setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
-("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/"))))
-(t
-(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)))
+(cond
+    ((or (string-equal system-name "fbmi01342vp") (string-equal system-name "FBMI01342-2PP")) (setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
+                                                                   ("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/"))))
+    (t (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)))
 #+END_SRC
 
 ** Boostrap use-package
@@ -254,9 +253,9 @@ I *never* want whitespace at the end of lines. Remove it on save.
 Set a nice font.
 
 #+BEGIN_SRC emacs-lisp
-(cond ((string-equal system-name 'giancarlo-pc.casa.local)
-(set-frame-font "Source Code Pro 11" nil t))
-(t (set-frame-font "terminus-12" nil t)))
+(cond ((string-equal system-name "giancarlo-pc.casa.local") (set-frame-font "Source Code Pro 11" nil t))
+      ((or (string-equal system-name "fbmi01342vp") (string-equal system-name "FBMI01342-2PP")) (set-frame-font "Lucida Console 11" nil t))
+      (t (set-frame-font "terminus-12" nil t)))
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
