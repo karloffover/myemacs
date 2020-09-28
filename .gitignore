@@ -14,3 +14,4 @@ tramp
 config.el
 tmp/
 history
+network-security.data

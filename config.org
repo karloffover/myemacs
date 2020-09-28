@@ -234,7 +234,6 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 #+BEGIN_SRC emacs-lisp
 (use-package ansi-color
-  :ensure t
   :config (progn
             (defun my/ansi-colorize-buffer ()
               (let ((buffer-read-only nil))
@@ -374,13 +373,10 @@ Install some premade snippets (in addition to personal ones stored above)
 My gpg configuration. Fix configuration and migrate to use-package.
 
 #+BEGIN_SRC emacs-lisp
-(use-package epa
-:disabled
-:command
-(epa-global-mail-mode)
-:config
-(epa-pinentry-mode 'loopback)
-)
+(use-package epg
+  :defer t
+  :config
+  (setq epg-pinentry-mode 'loopback))
 #+END_SRC
 
 Configura gpg2 on OpenBSD
