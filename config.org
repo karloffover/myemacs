@@ -399,7 +399,7 @@ Configura gpg2 on OpenBSD
 (progn
 (setq org-directory "~/Documents/Agenda")
 (setq org-modules '(org-crypt))
-(setq org-capture-templates '(("c" "Temporary captures" plain (file "~/Documents/Agenda/captures.org") "%T\n %x" :prepend t :empty-lines 1)))
+(setq org-capture-templates '(("c" "Temporary captures" plain (file "~/Documents/Agenda/captures.org") "%T\n %x" :empty-lines 1)))
 (setq org-crypt-key "237BFD753F23A07FEDFCA79FA418FD130C08336D")
 (setq org-tags-exclude-from-inheritance '("crypt"))
 ))
