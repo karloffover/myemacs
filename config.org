@@ -440,11 +440,12 @@ EXWM is the default desktop manager, it has to be started from
 
 #+BEGIN_SRC emacs-lisp
 (use-package exwm
-:disabled
 :if (memq system-type '(berkeley-unix))
+:demand t
 :config
 (require 'exwm-config)
-(exwm-config-default)
+;;(exwm-config-default)
+(setq exwm-workspace-number 2)
 (display-battery-mode)
 (display-time)
 )
