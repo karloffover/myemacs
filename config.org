@@ -439,14 +439,14 @@ EXWM is the default desktop manager, it has to be started from
 .xsession, so it's not run on Windows + VcXsrv or terminal.
 
 #+BEGIN_SRC emacs-lisp
-(use-package exwm
-:if (memq system-type '(berkeley-unix))
-:demand t
-:config
-(require 'exwm-config)
-;;(exwm-config-default)
-(setq exwm-workspace-number 2)
-(display-battery-mode)
-(display-time)
-)
+  (use-package exwm
+  :if (memq system-type '(berkeley-unix))
+  :demand t
+  :config
+  (require 'exwm-config)
+  (exwm-config-default)
+  ;; (setq exwm-workspace-number 2)
+  (display-battery-mode)
+  (display-time)
+  )
 #+END_SRC
