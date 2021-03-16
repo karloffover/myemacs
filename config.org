@@ -201,7 +201,8 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 #+BEGIN_SRC emacs-lisp
 ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(toggle-frame-maximized)
+(cond ((not (string-equal system-type 'berkeley-unix))
+  (toggle-frame-maximized)))
 #+END_SRC
 
 ** Command completion
@@ -437,6 +438,7 @@ EXWM is the default desktop manager, it has to be started from
 
 #+BEGIN_SRC emacs-lisp
   (use-package exwm
+  :disabled
   :if (memq system-type '(berkeley-unix))
   :demand t
   :config
