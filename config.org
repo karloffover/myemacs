@@ -12,10 +12,7 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 
 #+BEGIN_SRC emacs-lisp
 (setq package-enable-at-startup nil)
-(cond
-    ((or (string-equal system-name "FBMI01342VP") (string-equal system-name "FBMI01342-2PP")) (setq package-archives '(("fineco-elpa" . "https://cvs.fineco.it/nexus/repository/fineco-elpa/")
-                                                                   ("fineco-melpa" . "https://cvs.fineco.it/nexus/repository/fineco-melpa/"))))
-    (t (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)))
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 #+END_SRC
 
 ** Boostrap use-package
