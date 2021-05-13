@@ -337,7 +337,7 @@ Install some premade snippets (in addition to personal ones stored above)
 :config
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(setq projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "./target" "./build" ".gradle" ".settings" ".classpath" ".project" "gradle/"))
+(setq projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "./target" "./build" ".gradle" ".settings" ".classpath" ".project" "gradle/" ".repository"))
 (projectile-mode +1))
 #+END_SRC
 
@@ -438,8 +438,7 @@ EXWM is the default desktop manager, it has to be started from
 
 #+BEGIN_SRC emacs-lisp
   (use-package exwm
-  :disabled
-  :if (memq system-type '(berkeley-unix))
+  :if (memq system-type '(gnu/linux))
   :demand t
   :config
   (require 'exwm-config)
