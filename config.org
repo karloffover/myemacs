@@ -93,14 +93,15 @@ This stops emacs adding customised settings to =init.el=. I try to avoid using c
 ** Global keys
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-/") 'hippie-expand)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-(global-set-key (kbd "C-M-s") 'isearch-forward)
-(global-set-key (kbd "C-M-r") 'isearch-backward)
-(global-set-key (kbd "M-o") 'other-window)
-(global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "M-/") 'hippie-expand)
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+  (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+  (global-set-key (kbd "C-M-s") 'isearch-forward)
+  (global-set-key (kbd "C-M-r") 'isearch-backward)
+  (global-set-key (kbd "M-o") 'other-window)
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z")) ;kill -SIGCONT pid
 #+END_SRC
 
 ** Start server
