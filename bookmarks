@@ -4,7 +4,7 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2020-10-27 Tue ")
- (rear-context-string)
- (position . 2))
+ (front-context-string . "<2021-08-20 Fri ")
+ (rear-context-string . ".isKeepLog() }\n\n")
+ (position . 1300))
 )
