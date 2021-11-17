@@ -102,6 +102,11 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
      (global-set-key (kbd "M-o") 'other-window)
      (global-unset-key (kbd "C-z"))
      (global-unset-key (kbd "C-x C-z")) ;kill -SIGCONT pid
+     (defun reload-emacs()
+       (interactive)
+       "Reload Emacs configuration"
+       (load-file user-init-file))
+     (global-set-key (kbd "C-c E") 'reload-emacs)
    #+END_SRC
 
 ** Start server
@@ -246,7 +251,7 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
   # Load theme.
 
   #+BEGIN_SRC emacs-lisp
-    (load-theme 'deeper-blue t)
+    (load-theme 'misterioso t)
   #+END_SRC
 
   # Set a nice font.
