@@ -4,7 +4,7 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2021-08-20 Fri ")
- (rear-context-string . ".isKeepLog() }\n\n")
- (position . 1300))
+ (front-context-string . "<2022-02-17 Thu ")
+ (rear-context-string . "-cassandra06-2\n\n")
+ (position . 3581))
 )

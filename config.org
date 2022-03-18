@@ -373,6 +373,13 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
        (add-to-list 'auto-mode-alist '("\\.jenkins$" . groovy-mode)))
    #+END_SRC
 
+** plantuml
+   #+BEGIN_SRC emacs-lisp
+     (setq org-plantuml-jar-path (expand-file-name "/home/giancarlorosso/Downloads/plantuml.jar"))
+     (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
+     (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
+   #+END_SRC
+
 * Gpg
 
   My gpg configuration. Fix configuration and migrate to use-package.
