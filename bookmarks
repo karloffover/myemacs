@@ -1,10 +1,10 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*-
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2022-02-17 Thu ")
- (rear-context-string . "-cassandra06-2\n\n")
- (position . 3581))
+ (front-context-string . "<2022-04-12 Tue ")
+ (rear-context-string . "dmin:admin#001\n\n")
+ (position . 4688))
 )
