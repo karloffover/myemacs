@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: <2020-05-14 Thu>
+#+DATE: 2022-05-12 10:35:15 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -204,7 +204,13 @@ I *never* want whitespace at the end of lines. Remove it on save.
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
-# I like frame maximized
+Hook to update timestamp if present
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'time-stamp)
+#+END_SRC
+
+I like frame maximized
 
 #+BEGIN_SRC emacs-lisp
   ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
@@ -230,7 +236,8 @@ I *never* want whitespace at the end of lines. Remove it on save.
   (use-package undo-tree
     :defer 5
     :config
-    (global-undo-tree-mode 1))
+    (global-undo-tree-mode 1)
+    (setq undo-tree-auto-save-history nil))
 #+END_SRC
 
 ** Ansi compilation console
@@ -257,11 +264,11 @@ I *never* want whitespace at the end of lines. Remove it on save.
 
 # Set a nice font.
 
-# #+BEGIN_SRC emacs-lisp
-# (cond ((string-equal system-name "giancarlo-pc.casa.local") (set-frame-font "Source Code Pro 11" nil t))
-#       ((or (string-equal system-name "FBMI01342VP") (string-equal system-name "FBMI01342-2PP")) (set-frame-font "Lucida Console 11" nil t))
-#       (t (set-frame-font "terminus-12" nil t)))
-# #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (cond ((string-equal system-name "giancarlo-pc.casa.local") (set-frame-font "Source Code Pro 12" nil t))
+        ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 12" nil t))
+        (t (set-frame-font "Unifont 12" nil t)))
+#+END_SRC
 
 Add emoji support. This is useful when working with html.
 
