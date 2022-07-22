@@ -168,7 +168,9 @@ I usually don't want tabs, if I do I can set this buffer-local to =t=. If I just
 No scrollbar, please.
 
 #+BEGIN_SRC emacs-lisp
-  (setq scroll-bar-mode -1)
+  (if (display-graphic-p)
+      (progn
+        (scroll-bar-mode -1)))
 #+END_SRC
 
 Save history, especially minibuffer
