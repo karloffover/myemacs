@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: 2022-05-12 10:35:15 giancarlorosso>
+#+DATE: 2023-01-20 10:32:15 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -194,6 +194,12 @@ Enable WSL copy and paste, since I don't have/like an X Server.
          (global-set-key
           (kbd "C-x M-w")
           'wsl-copy)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (defun my-comint-init ()
+    (setq comint-process-echoes t))
+  (add-hook 'comint-mode-hook 'my-comint-init)
 #+END_SRC
 
 * Interface
@@ -471,4 +477,15 @@ EXWM is the default desktop manager, it has to be started from
     (display-battery-mode)
     (display-time)
     )
+#+END_SRC
+
+* Other custom functions
+Easily find password file.
+
+#+BEGIN_SRC emacs-lisp
+  (defun find-password ()
+    "Open pass.txt.gpg"
+    (interactive)
+    (find-file "c:/Users/giancarlorosso/OneDrive - Fineco/Documents/exU/pass.txt.gpg"))
+  (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC

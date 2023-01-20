@@ -4,7 +4,7 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2022-11-22 Tue ")
- (rear-context-string . ">> /etc/subuid\n\n")
- (position . 7141))
+ (front-context-string . "<2023-01-19 Thu ")
+ (rear-context-string . "PATH=**** -vvv\n\n")
+ (position . 8378))
 )
