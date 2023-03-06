@@ -2,7 +2,11 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-capture-last-stored"
+(("reckless guide"
+ (position)
+ (location . "gemini://gemini.exoticsilicon.com/jay/reckless_guide_to_openbsd/")
+ (handler . elpher-bookmark-jump))
+("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
  (front-context-string . "<2023-01-19 Thu ")
  (rear-context-string . "PATH=**** -vvv\n\n")
