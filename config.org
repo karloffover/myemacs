@@ -486,6 +486,6 @@ Easily find password file.
   (defun find-password ()
     "Open pass.txt.gpg"
     (interactive)
-    (find-file "c:/Users/giancarlorosso/OneDrive - Fineco/Documents/exU/pass.txt.gpg"))
+    (find-file "U:/pass.txt.gpg"))
   (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC
