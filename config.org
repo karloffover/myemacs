@@ -396,6 +396,28 @@ Install some premade snippets (in addition to personal ones stored above)
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
 
+** corfu
+#+BEGIN_SRC emacs-lisp
+  (use-package corfu
+    :init
+    (global-corfu-mode)
+    )
+#+END_SRC
+
+** circadian
+;; https://github.com/GuidoSchmidt/circadian.el
+#+BEGIN_SRC emacs-lisp
+(use-package circadian
+  :config
+  (setq calendar-latitude 45.464203)
+  (setq calendar-longitude 9.189982)
+  (setq circadian-themes '((:sunrise . wombat)
+                           ("8:00"   . tango)
+                           (:sunset  . adwaita)
+                           ("23:30"  . tango)))
+  (circadian-setup))
+#+END_SRC
+
 * Gpg
 
 My gpg configuration. Fix configuration and migrate to use-package.
