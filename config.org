@@ -264,14 +264,6 @@ I like frame maximized
 
 * Appearance
 
-# Load theme.
-
-#+BEGIN_SRC emacs-lisp
-  (load-theme 'misterioso t)
-#+END_SRC
-
-# Set a nice font.
-
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-name "iMac.local") (set-frame-font "Source Code Pro 14" nil t))
         ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 12" nil t))
