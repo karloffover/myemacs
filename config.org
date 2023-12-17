@@ -262,6 +262,16 @@ I like frame maximized
               (add-hook 'compilation-filter-hook 'my/ansi-colorize-buffer)))
 #+END_SRC
 
+** golden ratio throygh zoom
+;; https://github.com/cyrus-and/zoom
+#+BEGIN_SRC emacs-lisp
+  (use-package zoom
+    :config (custom-set-variables
+             '(zoom-mode t)
+             '(zoom-size '(0.618 . 0.618)))
+    )
+#+END_SRC
+
 * Appearance
 
 #+BEGIN_SRC emacs-lisp
