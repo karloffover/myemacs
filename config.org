@@ -413,10 +413,10 @@ Install some premade snippets (in addition to personal ones stored above)
   :config
   (setq calendar-latitude 45.464203)
   (setq calendar-longitude 9.189982)
-  (setq circadian-themes '((:sunrise . wombat)
-                           ("8:00"   . tango)
+  (setq circadian-themes '((:sunrise . misterioso)
+                           ("8:00"   . adwaita)
                            (:sunset  . adwaita)
-                           ("23:30"  . tango)))
+                           ("23:30"  . adwaitao)))
   (circadian-setup))
 #+END_SRC
 
