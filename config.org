@@ -276,8 +276,8 @@ I like frame maximized
 
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-name "iMac.local") (set-frame-font "Source Code Pro 14" nil t))
-        ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 12" nil t))
-        (t (set-frame-font "Unifont 12" nil t)))
+        ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 13" nil t))
+        (t (set-frame-font "Unifont 13" nil t)))
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
