@@ -414,9 +414,7 @@ Install some premade snippets (in addition to personal ones stored above)
   (setq calendar-latitude 45.464203)
   (setq calendar-longitude 9.189982)
   (setq circadian-themes '((:sunrise . misterioso)
-                           ("8:00"   . adwaita)
-                           (:sunset  . adwaita)
-                           ("23:30"  . adwaitao)))
+                           (:sunset . tango-dark)))
   (circadian-setup))
 #+END_SRC
 
