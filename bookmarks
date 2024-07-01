@@ -8,8 +8,8 @@
  (handler . elpher-bookmark-jump))
 ("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2023-12-18 Mon ")
- (rear-context-string . "utions/3220741\n\n")
- (position . 15659)
- (last-modified 25984 28608 808522 0))
+ (front-context-string . "<2024-06-17 Mon ")
+ (rear-context-string . "SSC)\nrun-batch\n\n")
+ (position . 24313)
+ (last-modified 26224 14900 809186 0))
 )
