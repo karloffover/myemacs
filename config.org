@@ -277,7 +277,7 @@ I like frame maximized
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-name "iMac.local") (set-frame-font "Source Code Pro 12" nil t))
         ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 12" nil t))
-        (t (set-frame-font "Unifont 12" nil t)))
+        (t (set-frame-font "Source Code Pro 12" nil t)))
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
@@ -393,7 +393,7 @@ Install some premade snippets (in addition to personal ones stored above)
 
 ** plantuml
 #+BEGIN_SRC emacs-lisp
-  (setq org-plantuml-jar-path (expand-file-name "/home/giancarlorosso/Downloads/plantuml.jar"))
+  (setq org-plantuml-jar-path (expand-file-name "C:/Users/giancarlorosso/AppData/Roaming/plantuml-1.2024.6.jar"))
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
@@ -413,7 +413,7 @@ Install some premade snippets (in addition to personal ones stored above)
   :config
   (setq calendar-latitude 45.464203)
   (setq calendar-longitude 9.189982)
-  (setq circadian-themes '((:sunrise . modus-vivendi)
+  (setq circadian-themes '((:sunrise . afternoon)
                            (:sunset . tango-dark)))
   (circadian-setup))
 #+END_SRC
