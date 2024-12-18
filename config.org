@@ -393,7 +393,7 @@ Install some premade snippets (in addition to personal ones stored above)
 
 ** plantuml
 #+BEGIN_SRC emacs-lisp
-  (setq org-plantuml-jar-path (expand-file-name "C:/Users/giancarlorosso/AppData/Roaming/plantuml-1.2024.6.jar"))
+  (setq org-plantuml-jar-path (expand-file-name "C:/Users/giancarlorosso/AppData/Roaming/plantuml-1.2024.8.jar"))
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
@@ -417,6 +417,28 @@ Install some premade snippets (in addition to personal ones stored above)
                            (:sunset . tango-dark)))
   (circadian-setup))
 #+END_SRC
+
+** copilot
+# #+BEGIN_SRC emacs-lisp
+#   (defvar bootstrap-version)
+#   (let ((bootstrap-file
+#          (expand-file-name
+#           "straight/repos/straight.el/bootstrap.el"
+#           (or (bound-and-true-p straight-base-dir)
+#               user-emacs-directory)))
+#         (bootstrap-version 7))
+#     (unless (file-exists-p bootstrap-file)
+#       (with-current-buffer
+#           (url-retrieve-synchronously
+#            "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+#            'silent 'inhibit-cookies)
+#         (goto-char (point-max))
+#         (eval-print-last-sexp)))
+#     (load bootstrap-file nil 'nomessage))
+#   (use-package copilot
+#     :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
+#     :ensure t)
+# #+END_SRC
 
 * Gpg
 
@@ -511,3 +533,47 @@ Easily find password file.
     (find-file "U:/pass.txt.gpg"))
   (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC
+
+** password-store
+# #+BEGIN_SRC emacs-lisp
+# (require 'consult)
+# (require 'auth-source-pass)
+
+# (use-package pass
+#   :requires password-store
+#   :preface
+#   (defvar consult:pass-source
+#     `(:name "Passwords"
+#       :narrow ?<                     ;; maybe you want something else for narrow?
+#       :face pass-mode-directory-face ;; maybe you want to use a different face?
+#       :category pass
+#       :enabled
+#       ,(lambda ()
+#          (auth-source-pass-file-name-p auth-source-pass-filename))
+#       :items ,#'password-store-list)
+#     "Consult source for passwords with (go)pass.")
+
+#   (defun consult:pass (arg pass)
+#     "Stolen from Doom Emacs.
+# https://github.com/doomemacs/doomemacs/blob/master/modules/tools/pass/autoload/consult.el"
+#     (interactive
+#      (list current-prefix-arg
+#            (progn
+#              (require 'consult)
+#              (consult--read consult:pass-source
+#                             :prompt "(Go)Pass: "
+#                             :sort nil
+#                             :require-match t
+#                             :category 'pass))))
+#     (funcall (if arg
+#                  #'password-store-url
+#                #'password-store-copy)
+#              pass))
+#   :custom
+#   (password-store-executable (executable-find "gopass"))
+#   (auth-source-pass-filename
+#    (or (getenv "PASSWORD_STORE_DIR")
+#        (expand-file-name "~/.local/share/gopass/stores/root")))
+#   :config
+#   (auth-source-pass-enable)))
+# #+END_SRC

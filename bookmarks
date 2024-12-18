@@ -8,8 +8,8 @@
  (handler . elpher-bookmark-jump))
 ("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2024-08-07 Wed ")
- (rear-context-string . "ost-controller\n\n")
- (position . 27951)
- (last-modified 26291 21582 922018 0))
+ (front-context-string . "<2024-12-11 Wed ")
+ (rear-context-string . "job.delete()\n}\n\n")
+ (position . 32104)
+ (last-modified 26457 46106 243774 0))
 )
