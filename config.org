@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: 2023-01-20 10:32:15 giancarlorosso>
+#+DATE: <2025-02-25 Tue>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -355,16 +355,6 @@ Install some premade snippets (in addition to personal ones stored above)
   (setq company-dabbrev-downcase nil)
 #+END_SRC
 
-** projectile
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :config
-    (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-    (setq projectile-globally-ignored-directories '(".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "./target" "./build" ".gradle" ".settings" ".classpath" ".project" "gradle/" ".repository"))
-    (projectile-mode +1))
-#+END_SRC
-
 ** smex
 
 #+BEGIN_SRC emacs-lisp
@@ -409,16 +399,19 @@ Install some premade snippets (in addition to personal ones stored above)
 ** circadian
 ;; https://github.com/GuidoSchmidt/circadian.el
 #+BEGIN_SRC emacs-lisp
-(use-package circadian
-  :config
-  (setq calendar-latitude 45.464203)
-  (setq calendar-longitude 9.189982)
-  (setq circadian-themes '((:sunrise . afternoon)
-                           (:sunset . tango-dark)))
-  (circadian-setup))
+  (use-package circadian
+    :config
+    (setq calendar-latitude 45.464203)
+    (setq calendar-longitude 9.189982)
+    ;; (setq circadian-themes '((:sunrise . afternoon)
+    ;;                          (:sunset . tango-dark)))
+    (setq circadian-themes '((:sunrise . doom-gruvbox-light)
+                             (:sunset . (doom-dracula doom-gruvbox))))
+    (add-hook 'emacs-startup-hook #'circadian-setup)
+    (circadian-setup))
 #+END_SRC
 
-** copilot
+# ** copilot
 # #+BEGIN_SRC emacs-lisp
 #   (defvar bootstrap-version)
 #   (let ((bootstrap-file
