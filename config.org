@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-03-18 11:21:28 giancarlorosso>
+#+DATE: Time-stamp: <2025-03-18 15:39:26 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -175,7 +175,6 @@ I like to keep backups in a different folder, and delete them when they became o
 #+END_SRC
 
 I usually don't want tabs, if I do I can set this buffer-local to =t=. If I just want one tab then use =C-q= (=quoted-insert=) to insert as a literal.
-
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
 #+END_SRC
@@ -187,7 +186,6 @@ I usually don't want tabs, if I do I can set this buffer-local to =t=. If I just
 # #+END_SRC
 
 No scrollbar, please.
-
 #+BEGIN_SRC emacs-lisp
   (if (display-graphic-p)
       (progn
@@ -195,7 +193,6 @@ No scrollbar, please.
 #+END_SRC
 
 Save history, especially minibuffer
-
 #+BEGIN_SRC emacs-lisp
   (savehist-mode t)
   (setq savehist-file "~/.emacs.d/tmp/savehist")
