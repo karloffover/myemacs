@@ -1,15 +1,13 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: <2025-02-25 Tue>
+#+DATE: Time-stamp: <2025-03-18 11:21:28 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 
 * Setup
-
 ** Configure package sources
-
 #+BEGIN_SRC emacs-lisp
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -17,7 +15,6 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 
 ** Boostrap use-package
 If =use-package= is not installed, install it.
-
 #+BEGIN_SRC emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
@@ -26,15 +23,12 @@ If =use-package= is not installed, install it.
 #+END_SRC
 
 By default all packages should be installed from package manager as that's the usual path. This is equivalent to setting =:ensure t= on each call to =use-package=. To disable set =:ensure nil= (this is done automatically for any packages using =:load-path= so shouldn't generally be needed).
-
 #+BEGIN_SRC emacs-lisp
   (setq use-package-always-ensure t)
 #+END_SRC
 
 ** Benchmark startup
-
 =benchmark-init= records startup time by package so we can debug. It only records things after it's initialised, so put as early in config as possible.
-
 #+BEGIN_SRC emacs-lisp
   (use-package benchmark-init
     :config
@@ -47,9 +41,7 @@ By default all packages should be installed from package manager as that's the u
 #+END_SRC
 
 ** Increase garbage collector threshold
-
 The default garbage collection threshold is 800kB, increasing this to 10MB for startup increases speed (from 11.0s -> 9.7s when I tested).
-
 #+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 10000000)
 
@@ -62,7 +54,6 @@ The default garbage collection threshold is 800kB, increasing this to 10MB for s
 #+END_SRC
 
 ** Make it easy to edit this file
-
 #+BEGIN_SRC emacs-lisp
   (defun find-config ()
     "Edit config.org"
@@ -73,9 +64,7 @@ The default garbage collection threshold is 800kB, increasing this to 10MB for s
 #+END_SRC
 
 ** Set custom settings to load in own file
-
 This stops emacs adding customised settings to =init.el=. I try to avoid using customize anyway, preferring programmatic control of variables. Creating it as a temporary file effectively disables it (i.e. any changes are session local).
-
 #+BEGIN_SRC emacs-lisp
   (setq custom-file (make-temp-file "emacs-custom"))
 #+END_SRC
@@ -112,37 +101,69 @@ This stops emacs adding customised settings to =init.el=. I try to avoid using c
 
 ** Start server
 Allow emacsclient to be invoked
-
 #+BEGIN_SRC emacs-lisp
   (server-start)
 #+END_SRC
 
+** Enable vterm
+Uso vterm come terminale, funziona solo su linux dopo aver compilato:
+https://github.com/akermu/emacs-libvterm/tree/master
+#+BEGIN_SRC emacs-lisp
+  (use-package vterm
+    :load-path "/home/giancarlorosso/Development/emacs-libvterm/"
+    :custom
+    (vterm-buffer-name-string "vt")
+    :config
+    (defun turn-off-chrome ()
+      (hl-line-mode -1)
+      (display-line-numbers-mode -1)
+      :hook (vterm-mode . turn-off-chrome))
+    (defun my-project-shell ()
+      "Start an inferior shell in the current project's root directory.
+  If a buffer already exists for running a shell in the project's root,
+  switch to it.  Otherwise, create a new shell buffer.
+  With \\[universal-argument] prefix arg, create a new inferior shell buffer even
+  if one already exists."
+      (interactive)
+      (require 'comint)
+      (let* ((default-directory (project-root (project-current t)))
+             (default-project-shell-name (project-prefixed-buffer-name "shell"))
+             (shell-buffer (get-buffer default-project-shell-name)))
+        (if (and shell-buffer (not current-prefix-arg))
+            (if (comint-check-proc shell-buffer)
+                (pop-to-buffer shell-buffer (bound-and-true-p display-comint-buffer-action))
+              (vterm shell-buffer))
+          (vterm (generate-new-buffer-name default-project-shell-name)))))
+
+    (advice-add 'project-shell :override #'my-project-shell))
+#+END_SRC
+
 * Preferences
 Don't display the help screen on startup and disable menu-bar.
-
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
   (menu-bar-mode 0)
 #+END_SRC
 
+Abilito hl-line solamente per i buffer di testo e di programmazione,
+non per i terminali.
 #+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode t)
+  (require 'hl-line)
+  (add-hook 'prog-mode-hook #'hl-line-mode)
+  (add-hook 'text-mode-hook #'hl-line-mode)
 #+END_SRC
 
 Let's turn off unwanted window decoration.
-
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
 #+END_SRC
 
 I don't want the error bell.
-
 #+BEGIN_SRC emacs-lisp
   (setq ring-bell-function 'ignore)
 #+END_SRC
 
 I like to keep backups in a different folder, and delete them when they became old.
-
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
         backup-by-copying t    ; Don't delink hardlinks
@@ -181,9 +202,7 @@ Save history, especially minibuffer
 #+END_SRC
 
 ** Windows and WSL hacks
-
 Enable WSL copy and paste, since I don't have/like an X Server.
-
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-name 'fbmi01342vp)
          (defun wsl-copy (start end)
@@ -200,26 +219,23 @@ Enable WSL copy and paste, since I don't have/like an X Server.
   (defun my-comint-init ()
     (setq comint-process-echoes t))
   (add-hook 'comint-mode-hook 'my-comint-init)
+  (add-hook 'comint-output-filter-functions #'comint-osc-process-output)
 #+END_SRC
 
 * Interface
 
 ** Basics
-
 I *never* want whitespace at the end of lines. Remove it on save.
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
 Hook to update timestamp if present
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'time-stamp)
 #+END_SRC
 
 I like frame maximized
-
 #+BEGIN_SRC emacs-lisp
   ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
   (cond ((not (string-equal system-type 'berkeley-unix))
@@ -227,9 +243,7 @@ I like frame maximized
 #+END_SRC
 
 ** Command completion
-
 =ivy= is a generic completion framework which uses the minibuffer. Turning on =ivy-mode= enables replacement of lots of built in =ido= functionality.
-
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
     :config
@@ -237,9 +251,7 @@ I like frame maximized
 #+END_SRC
 
 ** Better undo
-
 =undo-tree= visualises undo history as a tree for easy navigation.
-
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
     :defer 5
@@ -249,10 +261,8 @@ I like frame maximized
 #+END_SRC
 
 ** Ansi compilation console
-
 ;; ansi-color.
 ;; https://emacs.stackexchange.com/questions/8135/why-does-compilation-buffer-show-control-characters
-
 #+BEGIN_SRC emacs-lisp
   (use-package ansi-color
     :config (progn
@@ -281,16 +291,13 @@ I like frame maximized
 #+END_SRC
 
 Add emoji support. This is useful when working with html.
-
 #+BEGIN_SRC emacs-lisp
   (use-package emojify)
 #+END_SRC
 
 * Coding
 ** Programming specific interface improvements
-
 When programming I like my editor to try to help me with keeping parentheses balanced.
-
 #+BEGIN_SRC emacs-lisp
   (use-package smartparens
     :config
@@ -298,21 +305,17 @@ When programming I like my editor to try to help me with keeping parentheses bal
 #+END_SRC
 
 Expand parentheses for me.
-
 #+BEGIN_SRC emacs-lisp
   (add-hook 'prog-mode-hook 'electric-pair-mode)
 #+END_SRC
 
 ** Environment management
-
 # #+BEGIN_SRC emacs-lisp
 # (setq exec-path '("/home/giancarlorosso/.sdkman/candidates/java/current/bin"))
 # #+END_SRC
 
 ** Jump to source
-
 Individual language packages often support IDE features like jump to source, but =dumb-jump= attempts to support many languages by simple searching. It's quite effective even with dynamic libraries like JS and Python.
-
 #+BEGIN_SRC emacs-lisp
   (use-package dumb-jump
     :bind (("C-M-g" . dumb-jump-go)
@@ -321,11 +324,8 @@ Individual language packages often support IDE features like jump to source, but
 #+END_SRC
 
 ** Snippets
-
 Unlike autocomplete which suggests words / symbols, snippets are pre-prepared templates which you fill in.
-
 Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet.
-
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :config
@@ -334,15 +334,12 @@ Type the shortcut and press =TAB= to complete, or =M-/= to autosuggest a snippet
 #+END_SRC
 
 Install some premade snippets (in addition to personal ones stored above)
-
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet-snippets)
 #+END_SRC
 
 ** Autocomplete
-
 =company=
-
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :diminish
@@ -356,7 +353,6 @@ Install some premade snippets (in addition to personal ones stored above)
 #+END_SRC
 
 ** smex
-
 #+BEGIN_SRC emacs-lisp
   (use-package smex
     :bind (("M-x". smex))
@@ -366,7 +362,6 @@ Install some premade snippets (in addition to personal ones stored above)
 #+END_SRC
 
 ** yaml
-
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
     :config
@@ -374,7 +369,6 @@ Install some premade snippets (in addition to personal ones stored above)
 #+END_SRC
 
 ** groovy
-
 #+BEGIN_SRC emacs-lisp
   (use-package groovy-mode
     :config
@@ -403,40 +397,13 @@ Install some premade snippets (in addition to personal ones stored above)
     :config
     (setq calendar-latitude 45.464203)
     (setq calendar-longitude 9.189982)
-    ;; (setq circadian-themes '((:sunrise . afternoon)
-    ;;                          (:sunset . tango-dark)))
-    (setq circadian-themes '((:sunrise . doom-gruvbox-light)
-                             (:sunset . (doom-dracula doom-gruvbox))))
-    (add-hook 'emacs-startup-hook #'circadian-setup)
+    (setq circadian-themes '((:sunrise . afternoon)
+                             (:sunset . tango-dark)))
     (circadian-setup))
 #+END_SRC
 
-# ** copilot
-# #+BEGIN_SRC emacs-lisp
-#   (defvar bootstrap-version)
-#   (let ((bootstrap-file
-#          (expand-file-name
-#           "straight/repos/straight.el/bootstrap.el"
-#           (or (bound-and-true-p straight-base-dir)
-#               user-emacs-directory)))
-#         (bootstrap-version 7))
-#     (unless (file-exists-p bootstrap-file)
-#       (with-current-buffer
-#           (url-retrieve-synchronously
-#            "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-#            'silent 'inhibit-cookies)
-#         (goto-char (point-max))
-#         (eval-print-last-sexp)))
-#     (load bootstrap-file nil 'nomessage))
-#   (use-package copilot
-#     :straight (:host github :repo "copilot-emacs/copilot.el" :files ("*.el"))
-#     :ensure t)
-# #+END_SRC
-
 * Gpg
-
 My gpg configuration. Fix configuration and migrate to use-package.
-
 #+BEGIN_SRC emacs-lisp
   (use-package epg
     :defer t
@@ -445,7 +412,6 @@ My gpg configuration. Fix configuration and migrate to use-package.
 #+END_SRC
 
 Configura gpg2 on OpenBSD
-
 #+BEGIN_SRC emacs-lisp
   (cond
    ((string-equal system-type "berkeley-unix")
@@ -453,7 +419,6 @@ Configura gpg2 on OpenBSD
 #+END_SRC
 
 * Org
-
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :mode ("\\.\\(org\\|org_archive\\)$" . org-mode)
@@ -470,7 +435,6 @@ Configura gpg2 on OpenBSD
 #+END_SRC
 
 Make agenda and notes easily accessible.
-
 #+BEGIN_SRC emacs-lisp
   (defun find-agenda ()
     "Edit agenda.org"
@@ -487,9 +451,7 @@ Make agenda and notes easily accessible.
 #+END_SRC
 
 ** htmlize
-
 Package per esportare org in html.
-
 #+BEGIN_SRC emacs-lisp
   (use-package htmlize)
 #+END_SRC
@@ -526,47 +488,3 @@ Easily find password file.
     (find-file "U:/pass.txt.gpg"))
   (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC
-
-** password-store
-# #+BEGIN_SRC emacs-lisp
-# (require 'consult)
-# (require 'auth-source-pass)
-
-# (use-package pass
-#   :requires password-store
-#   :preface
-#   (defvar consult:pass-source
-#     `(:name "Passwords"
-#       :narrow ?<                     ;; maybe you want something else for narrow?
-#       :face pass-mode-directory-face ;; maybe you want to use a different face?
-#       :category pass
-#       :enabled
-#       ,(lambda ()
-#          (auth-source-pass-file-name-p auth-source-pass-filename))
-#       :items ,#'password-store-list)
-#     "Consult source for passwords with (go)pass.")
-
-#   (defun consult:pass (arg pass)
-#     "Stolen from Doom Emacs.
-# https://github.com/doomemacs/doomemacs/blob/master/modules/tools/pass/autoload/consult.el"
-#     (interactive
-#      (list current-prefix-arg
-#            (progn
-#              (require 'consult)
-#              (consult--read consult:pass-source
-#                             :prompt "(Go)Pass: "
-#                             :sort nil
-#                             :require-match t
-#                             :category 'pass))))
-#     (funcall (if arg
-#                  #'password-store-url
-#                #'password-store-copy)
-#              pass))
-#   :custom
-#   (password-store-executable (executable-find "gopass"))
-#   (auth-source-pass-filename
-#    (or (getenv "PASSWORD_STORE_DIR")
-#        (expand-file-name "~/.local/share/gopass/stores/root")))
-#   :config
-#   (auth-source-pass-enable)))
-# #+END_SRC
