@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-03-28 15:29:10 giancarlorosso>
+#+DATE: Time-stamp: <2025-03-28 16:04:19 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -109,6 +109,7 @@ Uso vterm come terminale, funziona solo su linux dopo aver compilato:
 https://github.com/akermu/emacs-libvterm/tree/master
 #+BEGIN_SRC emacs-lisp
   (use-package vterm
+    :if (eq system-type 'gnu/linux)
     :load-path "/home/giancarlorosso/Development/emacs-libvterm/"
     :custom
     (vterm-buffer-name-string "%s")
@@ -374,7 +375,7 @@ Install some premade snippets (in addition to personal ones stored above)
 
 ** plantuml
 #+BEGIN_SRC emacs-lisp
-  (setq org-plantuml-jar-path (expand-file-name "C:/Users/giancarlorosso/AppData/Roaming/plantuml-1.2024.8.jar"))
+  (setq org-plantuml-jar-path (expand-file-name "C:/Users/giancarlorosso/AppData/Roaming/plantuml-1.2025.2.jar"))
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
@@ -388,7 +389,7 @@ Install some premade snippets (in addition to personal ones stored above)
     (setq calendar-longitude 9.189982)
     (setq circadian-themes '((:sunrise . afternoon)
                              (:sunset . tango-dark)))
-    (add-hook 'emacs-startup-hook #'circadian-setup)
+    (setq circadian-verbose t)
     (circadian-setup))
 #+END_SRC
 
@@ -446,9 +447,6 @@ Package per esportare org in html.
   (use-package htmlize)
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-#+END_SRC
-
 * EXWM
 EXWM is the default desktop manager, it has to be started from
 .xsession, so it's not run on Windows + VcXsrv or terminal.
@@ -476,4 +474,7 @@ Easily find password file.
     (interactive)
     (find-file "U:/pass.txt.gpg"))
   (global-set-key (kbd "C-c L") 'find-password)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
 #+END_SRC
