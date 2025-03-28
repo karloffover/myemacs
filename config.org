@@ -1,7 +1,11 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-03-19 10:53:51 giancarlorosso>
+<<<<<<< Updated upstream
+#+DATE: Time-stamp: <2025-03-28 14:16:10 giancarlorosso>
+=======
+#+DATE: <2025-02-26 Wed>
+>>>>>>> Stashed changes
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -81,7 +85,6 @@ This stops emacs adding customised settings to =init.el=. I try to avoid using c
 # #+END_SRC
 
 ** Global keys
-
 #+BEGIN_SRC emacs-lisp
   (global-set-key (kbd "M-/") 'hippie-expand)
   (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -217,8 +220,12 @@ Enable WSL copy and paste, since I don't have/like an X Server.
   (add-hook 'comint-output-filter-functions #'comint-osc-process-output)
 #+END_SRC
 
-* Interface
+** completion native instead of corfu
+#+BEGIN_SRC emacs-lisp
+  (setq global-completion-preview-mode t)
+#+END_SRC
 
+* Interface
 ** Basics
 I *never* want whitespace at the end of lines. Remove it on save.
 #+BEGIN_SRC emacs-lisp
@@ -278,7 +285,6 @@ I like frame maximized
 #+END_SRC
 
 * Appearance
-
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-name "iMac.local") (set-frame-font "Source Code Pro 12" nil t))
         ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 12" nil t))
@@ -377,14 +383,6 @@ Install some premade snippets (in addition to personal ones stored above)
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
 
-** corfu
-#+BEGIN_SRC emacs-lisp
-  (use-package corfu
-    :init
-    (global-corfu-mode)
-    )
-#+END_SRC
-
 ** circadian
 ;; https://github.com/GuidoSchmidt/circadian.el
 #+BEGIN_SRC emacs-lisp
@@ -394,6 +392,7 @@ Install some premade snippets (in addition to personal ones stored above)
     (setq calendar-longitude 9.189982)
     (setq circadian-themes '((:sunrise . afternoon)
                              (:sunset . tango-dark)))
+    (add-hook 'emacs-startup-hook #'circadian-setup)
     (circadian-setup))
 #+END_SRC
 
@@ -455,7 +454,6 @@ Package per esportare org in html.
 #+END_SRC
 
 * EXWM
-
 EXWM is the default desktop manager, it has to be started from
 .xsession, so it's not run on Windows + VcXsrv or terminal.
 
