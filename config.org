@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-03-18 15:39:26 giancarlorosso>
+#+DATE: Time-stamp: <2025-03-19 10:53:51 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -112,12 +112,8 @@ https://github.com/akermu/emacs-libvterm/tree/master
   (use-package vterm
     :load-path "/home/giancarlorosso/Development/emacs-libvterm/"
     :custom
-    (vterm-buffer-name-string "vt")
+    (vterm-buffer-name-string "%s")
     :config
-    (defun turn-off-chrome ()
-      (hl-line-mode -1)
-      (display-line-numbers-mode -1)
-      :hook (vterm-mode . turn-off-chrome))
     (defun my-project-shell ()
       "Start an inferior shell in the current project's root directory.
   If a buffer already exists for running a shell in the project's root,
@@ -135,7 +131,9 @@ https://github.com/akermu/emacs-libvterm/tree/master
               (vterm shell-buffer))
           (vterm (generate-new-buffer-name default-project-shell-name)))))
 
-    (advice-add 'project-shell :override #'my-project-shell))
+    (advice-add 'project-shell :override #'my-project-shell)
+    (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+    )
 #+END_SRC
 
 * Preferences
