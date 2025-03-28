@@ -1,11 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-<<<<<<< Updated upstream
-#+DATE: Time-stamp: <2025-03-28 14:16:10 giancarlorosso>
-=======
-#+DATE: <2025-02-26 Wed>
->>>>>>> Stashed changes
+#+DATE: Time-stamp: <2025-03-28 15:29:10 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
