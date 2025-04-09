@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-03-28 16:04:19 giancarlorosso>
+#+DATE: Time-stamp: <2025-04-09 13:20:39 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -133,6 +133,7 @@ https://github.com/akermu/emacs-libvterm/tree/master
 
     (advice-add 'project-shell :override #'my-project-shell)
     (define-key vterm-mode-map (kbd "C-q") #'vterm-send-next-key)
+    :bind (("C-c V" . vterm))
     )
 #+END_SRC
 
