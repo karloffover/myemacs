@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-04-09 13:20:39 giancarlorosso>
+#+DATE: Time-stamp: <2025-04-09 13:34:49 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -470,11 +470,14 @@ EXWM is the default desktop manager, it has to be started from
 Easily find password file.
 
 #+BEGIN_SRC emacs-lisp
-  (defun find-password ()
-    "Open pass.txt.gpg"
-    (interactive)
-    (find-file "U:/pass.txt.gpg"))
-  (global-set-key (kbd "C-c L") 'find-password)
+    (defun find-password ()
+      "Open pass.txt.gpg"
+      (interactive)
+      (cond ((string-equal system-type "berkeley-unix") (setq find-file-password "~/pass.txt.gpg"))
+            ((string-equal system-type "windows-nt") (setq find-file-password "U:/pass.txt.gpg"))
+            (t (setq find-file-password "~/pass.txt.gpg")))
+      (find-file find-file-password))
+    (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
