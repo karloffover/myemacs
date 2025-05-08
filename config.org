@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-04-09 13:34:49 giancarlorosso>
+#+DATE: Time-stamp: <2025-05-08 11:19:18 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -275,11 +275,12 @@ I like frame maximized
 ** golden ratio throygh zoom
 ;; https://github.com/cyrus-and/zoom
 #+BEGIN_SRC emacs-lisp
-  (use-package zoom
-    :config (custom-set-variables
-             '(zoom-mode t)
-             '(zoom-size '(0.618 . 0.618)))
-    )
+    (use-package zoom
+      :config (custom-set-variables
+               '(zoom-mode t)
+               '(zoom-size '(0.618 . 0.618))
+               '(zoom-ignored-major-modes '(dired-mode markdown-mode newsticker-mode)))
+      )
 #+END_SRC
 
 * Appearance
@@ -381,18 +382,6 @@ Install some premade snippets (in addition to personal ones stored above)
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
 
-** circadian
-;; https://github.com/GuidoSchmidt/circadian.el
-#+BEGIN_SRC emacs-lisp
-  (use-package circadian
-    :config
-    (setq calendar-latitude 45.464203)
-    (setq calendar-longitude 9.189982)
-    (setq circadian-themes '((:sunrise . afternoon)
-                             (:sunset . tango-dark)))
-    (setq circadian-verbose t)
-    (circadian-setup))
-#+END_SRC
 
 * Gpg
 My gpg configuration. Fix configuration and migrate to use-package.
