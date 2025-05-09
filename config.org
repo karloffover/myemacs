@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-05-08 11:19:18 giancarlorosso>
+#+DATE: Time-stamp: <2025-05-09 12:05:29 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -138,11 +138,22 @@ https://github.com/akermu/emacs-libvterm/tree/master
 #+END_SRC
 
 * Preferences
+Dark background?
+#+BEGIN_SRC emacs-lisp
+  (cond ((string-equal system-type 'gnu/linux)
+         (setq frame-background-mode 'dark)))
+#+END_SRC
+
 Don't display the help screen on startup and disable menu-bar.
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
   (menu-bar-mode 0)
 #+END_SRC
+
+# Provo ad usare eterm-colors
+# #+BEGIN_SRC emacs-lisp
+#   (add-hook 'term-mode-hook #'eterm-256color-mode)
+# #+END_SRC
 
 Abilito hl-line solamente per i buffer di testo e di programmazione,
 non per i terminali.
@@ -459,14 +470,14 @@ EXWM is the default desktop manager, it has to be started from
 Easily find password file.
 
 #+BEGIN_SRC emacs-lisp
-    (defun find-password ()
-      "Open pass.txt.gpg"
-      (interactive)
-      (cond ((string-equal system-type "berkeley-unix") (setq find-file-password "~/pass.txt.gpg"))
-            ((string-equal system-type "windows-nt") (setq find-file-password "U:/pass.txt.gpg"))
-            (t (setq find-file-password "~/pass.txt.gpg")))
-      (find-file find-file-password))
-    (global-set-key (kbd "C-c L") 'find-password)
+  (defun find-password ()
+    "Open pass.txt.gpg"
+    (interactive)
+    (cond ((string-equal system-type "berkeley-unix") (setq find-file-password "~/pass.txt.gpg"))
+          ((string-equal system-type "windows-nt") (setq find-file-password "U:/pass.txt.gpg"))
+          (t (setq find-file-password "~/pass.txt.gpg")))
+    (find-file find-file-password))
+  (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
