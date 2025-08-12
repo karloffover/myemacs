@@ -1,7 +1,11 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
+<<<<<<< HEAD
 #+DATE: Time-stamp: <2025-05-09 12:05:29 giancarlorosso>
+=======
+#+DATE: Time-stamp: <2025-08-12 12:30:53 giancarlorosso>
+>>>>>>> 4bc63d3 (chore: 20250812)
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -234,6 +238,34 @@ Enable WSL copy and paste, since I don't have/like an X Server.
   (setq global-completion-preview-mode t)
 #+END_SRC
 
+** tramp psm
+#+BEGIN_SRC emacs-lisp
+  ;; (add-to-list 'tramp-connection-properties
+  ;;              (list )
+  ;;              )
+  (with-eval-after-load "tramp" (add-to-list 'tramp-methods
+                                             `("psm"
+                                               (tramp-login-program "ssh")
+                                               (tramp-login-args
+                                                (("-l" "giancarlorosso")
+                                                 ("-p" "%p")
+                                                 ("%c")
+                                                 ("-e" "none")
+                                                 ("%u@%h@ckpsmp")))
+                                               (tramp-async-args
+                                                (("-q")))
+                                               (tramp-remote-shell "/bin/sh")
+                                               (tramp-remote-shell-login
+                                                ("-l"))
+                                               (tramp-remote-shell-args
+                                                ("-c"))
+                                               )))
+  ;; (with-eval-after-load "tramp" (add-to-list 'tramp-default-proxies-alist
+  ;;                               o             '(nil "\\`root\\'" "/ssh:%h:"))
+  ;;                       (add-to-list 'tramp-default-proxies-alist
+  ;;                                    '((regexp-quote (system-name)) nil nil)))
+#+END_SRC
+
 * Interface
 ** Basics
 I *never* want whitespace at the end of lines. Remove it on save.
@@ -286,12 +318,12 @@ I like frame maximized
 ** golden ratio throygh zoom
 ;; https://github.com/cyrus-and/zoom
 #+BEGIN_SRC emacs-lisp
-    (use-package zoom
-      :config (custom-set-variables
-               '(zoom-mode t)
-               '(zoom-size '(0.618 . 0.618))
-               '(zoom-ignored-major-modes '(dired-mode markdown-mode newsticker-mode)))
-      )
+  (use-package zoom
+    :config (custom-set-variables
+             '(zoom-mode t)
+             '(zoom-size '(0.618 . 0.618))
+             '(zoom-ignored-major-modes '(dired-mode markdown-mode newsticker-mode)))
+    )
 #+END_SRC
 
 * Appearance
@@ -393,7 +425,6 @@ Install some premade snippets (in addition to personal ones stored above)
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t)))
 #+END_SRC
 
-
 * Gpg
 My gpg configuration. Fix configuration and migrate to use-package.
 #+BEGIN_SRC emacs-lisp
@@ -470,13 +501,20 @@ EXWM is the default desktop manager, it has to be started from
 Easily find password file.
 
 #+BEGIN_SRC emacs-lisp
+  ;; file di password locale in formato authinfo
+  ;; da caricare su git
   (defun find-password ()
-    "Open pass.txt.gpg"
+    "Open authinfo.gpg"
     (interactive)
-    (cond ((string-equal system-type "berkeley-unix") (setq find-file-password "~/pass.txt.gpg"))
-          ((string-equal system-type "windows-nt") (setq find-file-password "U:/pass.txt.gpg"))
-          (t (setq find-file-password "~/pass.txt.gpg")))
+    (cond ((string-equal system-type "berkeley-unix") (setq find-file-password "~/.authinfo.gpg"))
+          ((string-equal system-type "windows-nt") (setq find-file-password "~/.authinfo.gpg"))
+          (t (setq find-file-password "~/.authinfo.gpg")))
     (find-file find-file-password))
+  (use-package password-menu
+    :ensure t
+    )
+  (global-set-key (kbd "C-x j") 'password-menu-transient)
+  (global-set-key (kbd "C-x J") 'password-menu-completing-read)
   (global-set-key (kbd "C-c L") 'find-password)
 #+END_SRC
 
