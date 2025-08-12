@@ -1,11 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-<<<<<<< HEAD
-#+DATE: Time-stamp: <2025-05-09 12:05:29 giancarlorosso>
-=======
-#+DATE: Time-stamp: <2025-08-12 12:30:53 giancarlorosso>
->>>>>>> 4bc63d3 (chore: 20250812)
+#+DATE: Time-stamp: <2025-08-12 13:50:31 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -142,12 +138,6 @@ https://github.com/akermu/emacs-libvterm/tree/master
 #+END_SRC
 
 * Preferences
-Dark background?
-#+BEGIN_SRC emacs-lisp
-  (cond ((string-equal system-type 'gnu/linux)
-         (setq frame-background-mode 'dark)))
-#+END_SRC
-
 Don't display the help screen on startup and disable menu-bar.
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
@@ -280,7 +270,6 @@ Hook to update timestamp if present
 
 I like frame maximized
 #+BEGIN_SRC emacs-lisp
-  ;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
   (cond ((not (string-equal system-type 'berkeley-unix))
          (toggle-frame-maximized)))
 #+END_SRC
