@@ -1,7 +1,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2025-08-12 13:50:31 giancarlorosso>
+#+DATE: Time-stamp: <2026-04-29 11:23:26 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -325,6 +325,10 @@ I like frame maximized
 Add emoji support. This is useful when working with html.
 #+BEGIN_SRC emacs-lisp
   (use-package emojify)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (load-theme 'misterioso t)
 #+END_SRC
 
 * Coding
