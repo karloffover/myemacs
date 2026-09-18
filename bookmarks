@@ -8,8 +8,8 @@
  (handler . elpher-bookmark-jump))
 ("org-capture-last-stored"
  (filename . "~/Documents/Agenda/captures.org")
- (front-context-string . "<2025-02-26 Wed ")
- (rear-context-string . "bsddac -noDict\n\n")
- (position . 36031)
- (last-modified 26559 14573 130927 0))
+ (front-context-string . "<2026-05-13 Wed ")
+ (rear-context-string . "ryptedValue())\n\n")
+ (position . 56807)
+ (last-modified 27140 13504 972590 727000))
 )

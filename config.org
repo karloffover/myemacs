@@ -1,7 +1,11 @@
+#+BEGIN_SRC elisp
+  ;;; -*- lexical-binding: t -*-
+  (message "This is a tangled file with lexical binding.")
+#+END_SRC
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2026-04-29 11:23:26 giancarlorosso>
+#+DATE: Time-stamp: <2026-09-18 10:35:22 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -375,19 +379,6 @@ Install some premade snippets (in addition to personal ones stored above)
 #+END_SRC
 
 ** Autocomplete
-=company=
-#+BEGIN_SRC emacs-lisp
-  (use-package company
-    :diminish
-    :config
-    (add-hook 'after-init-hook 'global-company-mode))
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (setq ido-enable-flex-matching t)
-  (setq company-dabbrev-downcase nil)
-#+END_SRC
-
 ** smex
 #+BEGIN_SRC emacs-lisp
   (use-package smex
@@ -512,4 +503,24 @@ Easily find password file.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+#+END_SRC
+
+* AI
+
+** copilot
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package copilot
+  ;;   :ensure t)
+  ;; (setq copilot-network-proxy '(:host "proxysrv.fineco.it" :port 3128 :rejectUnauthorized :json-false))
+#+END_SRC
+
+** openai
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package aidermacs
+  ;;     :bind (("C-c a" . aidermacs-transient-menu))
+  ;;     :config
+  ;;     (setenv "OPENAI_API_KEY" "...")
+  ;;     :custom
+  ;;     (aidermacs-default-chat-mode 'architect)
+  ;;     (aidermacs-default-model "gpt-4o"))
 #+END_SRC
