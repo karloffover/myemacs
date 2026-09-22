@@ -1,4 +1,5 @@
 *~
+.cache
 .smex-items
 \#*\#
 config.el
@@ -18,5 +19,5 @@ projects
 server/
 tmp/
 tramp
-url/
 transient/
+url/
