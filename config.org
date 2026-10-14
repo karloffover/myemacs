@@ -5,7 +5,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2026-09-18 10:35:22 giancarlorosso>
+#+DATE: Time-stamp: <2026-10-14 09:29:12 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -15,6 +15,7 @@ Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
 #+BEGIN_SRC emacs-lisp
   (setq package-enable-at-startup nil)
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (setq package-archives (delete 'nongnu package-archives))
 #+END_SRC
 
 ** Boostrap use-package
@@ -319,7 +320,9 @@ I like frame maximized
     )
 #+END_SRC
 
-* Appearance
+** Appearance
+
+Configurazione font di default per gli ambienti
 #+BEGIN_SRC emacs-lisp
   (cond ((string-equal system-name "iMac.local") (set-frame-font "Source Code Pro 12" nil t))
         ((or (string-equal system-name "fbmi01342VP") (string-equal system-name "fbmi01342PP")) (set-frame-font "Unifont 12" nil t))
@@ -331,8 +334,37 @@ Add emoji support. This is useful when working with html.
   (use-package emojify)
 #+END_SRC
 
+Selezione tema misterioso
 #+BEGIN_SRC emacs-lisp
   (load-theme 'misterioso t)
+#+END_SRC
+
+** ibuffer
+#+BEGIN_SRC emacs-lisp
+  ;; Prerequisites
+  (use-package all-the-icons-ibuffer :ensure t
+    :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
+  (use-package ibuffer
+    :ensure nil
+    :config
+    (setq ibuffer-saved-filter-groups
+          '(("Main"
+             ("Directories" (mode . dired-mode))
+             ("Org" (mode . org-mode))
+             ("Vterm" (mode . vterm-mode))
+             ("Emacs" (or
+                       (name . "\\`\\*Help\\*\\'")
+                       (name . "\\`\\*Custom.*")
+                       (name . "\\`\\*Org Agenda\\*\\'")
+                       (name . "\\`\\*info\\*\\'")
+                       (name . "\\`\\*scratch.*\\*\\'")
+                       (name . "\\`\\*Backtrace\\*\\'")
+                       (name . "\\`\\*Messages\\*\\'")
+                       (name . "\\`\\*ompile-log\\*\\'")
+                       (name . "\\`\\*Warnings\\*\\'"))))))
+    :hook
+    ((ibuffer-mode . hl-line-mode)
+     (ibuffer-mode . (lambda () (ibuffer-switch-to-saved-filter-groups "Main")))))
 #+END_SRC
 
 * Coding
@@ -516,11 +548,4 @@ Easily find password file.
 
 ** openai
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package aidermacs
-  ;;     :bind (("C-c a" . aidermacs-transient-menu))
-  ;;     :config
-  ;;     (setenv "OPENAI_API_KEY" "...")
-  ;;     :custom
-  ;;     (aidermacs-default-chat-mode 'architect)
-  ;;     (aidermacs-default-model "gpt-4o"))
 #+END_SRC
