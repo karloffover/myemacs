@@ -5,7 +5,7 @@
 #+TITLE: Emacs Config
 #+AUTHOR: Giancarlo Rosso
 #+TOC: true
-#+DATE: Time-stamp: <2026-10-14 09:29:12 giancarlorosso>
+#+DATE: Time-stamp: <2026-10-14 09:44:30 giancarlorosso>
 
 This is my attempt ad org-babel configuration.
 Deeply inspired by [[https://jamiecollinson.com/blog/my-emacs-config/]]
@@ -334,9 +334,10 @@ Add emoji support. This is useful when working with html.
   (use-package emojify)
 #+END_SRC
 
-Selezione tema misterioso
+Selezione tema in base all'host
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'misterioso t)
+  (cond ((string-equal system-name "FBMI01342VP") (load-theme 'leuven-dark t))
+        (t (load-theme 'misterioso t)))
 #+END_SRC
 
 ** ibuffer
